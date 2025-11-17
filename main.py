@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
-
+from langchain_ollama import ChatOllama
 load_dotenv()
 
 
@@ -29,11 +29,13 @@ Musk's political activities, views, and statements have made him a polarizing fi
         input_variables=["information"],
         template=summary_template,
     )
-    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+   # llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    llm = ChatOllama(model="llama3.2:latest", temperature=0)
+
     chain = summary_prompt_template | llm
     response = chain.invoke({"information": information})
     print(response.content)
 
-    
+
 if __name__ == "__main__":
     main()
